@@ -30,10 +30,22 @@ app.post ('/getKeywords', (req, res) => {
 app.post ('/getSimilarKeywords', (req, res) => {
     let  data = req.body.data;
     getSimilarKeywords (data, (result, err) => {
-        if (err) {
+        if (!result) {
             res.status (500).send (err);
         }
         res.send (result);
+    });
+});
+
+app.post ('/getSummary', (req, res) => {
+    let text = [req.body.text];
+
+    getSummary (text, (phrase, err) => {
+        if (!phrase) {
+            res.status (500).send (err);
+        }
+
+        res.send (phrase);
     });
 });
 
