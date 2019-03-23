@@ -92,7 +92,7 @@ io.on('connection', function(socket){
         });
         
         // socket.emit ('addImage', text+"FINAL");
-        callback();
+        // callback();
     });
 });
 
