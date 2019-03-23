@@ -82,10 +82,8 @@ io.on('connection', function(socket){
                         }
                         imageList.push (thisObj);
                     }
-                    let finalResp = {
-                        data: imageList
-                    }
-                    socket.emit ('addImage', JSON.stringify(finalResp));
+                    
+                    socket.emit ('addImage', JSON.stringify(imageList));
                 });
                 
             });
