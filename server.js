@@ -3,6 +3,7 @@ var app = require('express')();
 const bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var request = require('request');
 
 const { generateKeywords } = require ('./utils/keywords');
 const { getSimilarKeywords } = require ('./utils/similarKeywords');
@@ -51,7 +52,24 @@ app.post ('/getSummary', (req, res) => {
 
 io.on('connection', function(socket){
     console.log(`A new user connected ${socket.id}`);
+
+    socket.on ('getText', (text, callback) => {
+        console.log (text);
+        let toBeProcessed = [text];
+        generateKeywords (toBeProcessed, (keywords, err) => {
+            let reqParam = keywords.join (" ");
+            let URI = "http://104.208.162.211/get-images?query=" + reqParam;
+            request (URI, (err, resp, mainResp) => {
+                socket.emit ('addImage', JSON.stringify(mainResp));
+            });
+            
+        });
+        // socket.emit ('addImage', text+"FINAL");
+        callback();
+    });
 });
+
+
 
 http.listen (port, () => {
     console.log (`Server is up at port ${port}`);
