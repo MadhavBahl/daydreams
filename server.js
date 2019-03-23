@@ -85,7 +85,7 @@ io.on('connection', function(socket){
                     let finalResp = {
                         data: imageList
                     }
-                    socket.emit ('addImage', finalResp);
+                    socket.emit ('addImage', JSON.stringify(finalResp));
                 });
                 
             });
