@@ -53,6 +53,8 @@ app.post ('/getSummary', (req, res) => {
 io.on('connection', function(socket){
     console.log(`A new user connected ${socket.id}`);
 
+    socket.emit ('check', "Did it connect?");
+
     socket.on ('appStarted', (message) => {
         console.log ('Received Message: ' + message);
     });
