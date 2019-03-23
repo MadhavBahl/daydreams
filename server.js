@@ -53,6 +53,10 @@ app.post ('/getSummary', (req, res) => {
 io.on('connection', function(socket){
     console.log(`A new user connected ${socket.id}`);
 
+    socket.on ('appStarted', (message) => {
+        console.log ('Received Message: ' + message);
+    });
+
     socket.on ('getText', (text, callback) => {
         console.log (text);
         let toBeProcessed = [text];
@@ -79,7 +83,7 @@ io.on('connection', function(socket){
                     let finalResp = {
                         data: imageList
                     }
-                    socket.emit ('addImage', JSON.stringify(finalResp));
+                    socket.emit ('addImage', finalResp);
                 });
                 
             });
