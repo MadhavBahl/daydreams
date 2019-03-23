@@ -5,6 +5,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 const { generateKeywords } = require ('./utils/keywords');
+const { getSimilarKeywords } = require ('./utils/similarKeywords');
+const { getSummary } = require ('./utils/summary');
 
 const publicPath = path.join(__dirname, '/public');
 const port = process.env.PORT || 3000;
@@ -15,10 +17,6 @@ app.get('/', (req, res) => {
 });
 
 app.post ('/getKeywords', (req, res) => {
-    // console.log(req.body)
-    // let text = req.body.data;
-    // console.log (data);
-    // let keywords = generateKeywords (text);
     let data = [req.body.data];
     generateKeywords (data, (keywords, err) => {
         if (!data) {
@@ -27,7 +25,16 @@ app.post ('/getKeywords', (req, res) => {
 
         res.send (keywords);    
     });
-    
+});
+
+app.post ('/getSimilarKeywords', (req, res) => {
+    let  data = req.body.data;
+    getSimilarKeywords (data, (result, err) => {
+        if (err) {
+            res.status (500).send (err);
+        }
+        res.send (result);
+    });
 });
 
 io.on('connection', function(socket){

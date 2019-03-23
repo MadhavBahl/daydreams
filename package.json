@@ -14,6 +14,7 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "monkeylearn": "^3.2.1",
+    "request": "^2.88.0",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
