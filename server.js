@@ -80,9 +80,18 @@ io.on('connection', function(socket){
                             let imageList = [];
                             console.log (JSON.stringify(mainResp, null, 4));
                             for (let i=0; i<images.length; i++) {
+                                console.log ('Keywords - ' + keywords);
+                                let max=keywords.length;  
+                                let r1 = Math.floor(Math.random() * (+max - 0));
+                                let r2 = Math.floor(Math.random() * (+max - 0));
+                                while (r1 == r2) {
+                                    let r2 = Math.floor(Math.random() * (+max - 0));
+                                }
+                                console.log ('RANDOM - '+ r1 + ' '+ r2);
+                                let tags = keywords[r1] + ", " + keywords[r2];
                                 let thisObj = {
                                     imageURL: images[i][1],
-                                    desc: phrase
+                                    desc: tags
                                 }
                                 imageList.push (thisObj);
                             }
