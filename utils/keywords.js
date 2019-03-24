@@ -14,7 +14,7 @@ var generateKeywords = (data, callback) => {
 
             for (let i=0; i<len; i++) {
                 keywords.push (extractedArray[i].parsed_value);
-                console.log(extractedArray[i].parsed_value);
+                // console.log(extractedArray[i].parsed_value);
             }
 
             callback (keywords);

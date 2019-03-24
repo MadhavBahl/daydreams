@@ -69,21 +69,37 @@ io.on('connection', function(socket){
 
             generateKeywords (toBeProcessed, (keywords, err) => {
                 let reqParam = keywords.join (" ");
-                let URI = "http://104.208.162.211/get-images?query=" + reqParam;
+                let URI = "http://13.76.0.194/get-images?query=" + reqParam + ",cartoon";
                 request (URI, (err, resp, mainResp) => {
-                    let mResp = JSON.parse (mainResp);
-                    let images = mResp["images"];
-                    let imageList = [];
-                    console.log (JSON.stringify(mainResp, null, 4));
-                    for (let i=0; i<images.length; i++) {
-                        let thisObj = {
-                            imageURL: images[i][1],
-                            desc: phrase
+                    console.log (mainResp);
+                    try {
+                        let mResp = JSON.parse (mainResp);
+                    
+                        if (mResp["images"]) {
+                            let images = mResp["images"];
+                            let imageList = [];
+                            console.log (JSON.stringify(mainResp, null, 4));
+                            for (let i=0; i<images.length; i++) {
+                                let thisObj = {
+                                    imageURL: images[i][1],
+                                    desc: phrase
+                                }
+                                imageList.push (thisObj);
+                            }
+                            
+                            socket.emit ('addImage', JSON.stringify(imageList));
+                        } else {
+                            
                         }
-                        imageList.push (thisObj);
+                    } catch (objError) {
+                        if (objError instanceof SyntaxError) {
+                            console.log(objError.name);
+                        } else {
+                            console.log(objError.message);
+                        }
                     }
                     
-                    socket.emit ('addImage', JSON.stringify(imageList));
+                    
                 });
                 
             });
