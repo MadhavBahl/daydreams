@@ -1,0 +1,20 @@
+# Node Modules
+node_modules
+
+# Python venv
+.venv
+
+# temporary directory
+tmp
+
+# Editor settings
+.vscode
+
+# .pyc files
+*.pyc
+
+# Python cache
+__pycache__
+
+# OS Generated Files
+.DS_Store

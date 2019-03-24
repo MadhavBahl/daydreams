@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  image-search:
+    build:
+      context: ./image-search
+    ports:
+      - "8000:8000"
+    container_name: img1
